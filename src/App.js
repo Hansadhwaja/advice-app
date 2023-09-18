@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from "axios";
 const baseUrl = 'https://api.adviceslip.com/advice';
@@ -15,6 +15,16 @@ const App = () => {
                 console.log(error);
             });
     };
+    useEffect(() => {
+        axios.get(baseUrl)
+            .then((response) => {
+                const { advice } = response.data.slip;
+                setMessage(advice);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+      },[]);
     return (
         <div className='app'>
             <div className='card'>
